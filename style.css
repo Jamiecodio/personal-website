@@ -141,3 +141,35 @@ legend {
 .error-msg {
   display: none;
 }
+
+/* PROJECT 14 STYLES  */
+.showcase-title {
+  margin: 1rem;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: calc(50% - 1rem);
+  margin-bottom: 1rem;
+}
+
+.form-btns {
+  justify-content: center;
+  padding: 1rem;
+}
+
+#json-display {
+  background-color: black;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 7px;
+  display: none;
+}
+

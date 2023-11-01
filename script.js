@@ -1,9 +1,9 @@
-// Write your code here
 // GATHERING DOM ELEMENTS 
 const form = document.getElementById('contactForm');
 const submitButton = document.querySelector('.submit');
 const successMessage = document.getElementById('form-submitted-msg');
 const formElements = [...form.elements];
+
 // FUNCTION: Checking all formElements are valid
 const allInputsValid = () => {
   const valid = formElements.every((element) => {
@@ -11,7 +11,8 @@ const allInputsValid = () => {
   });
   return valid;
 }
-// Define a function to handle changes to any form element
+
+// FUNCTION: Handle changes to any form element
 const handleChange = () => {
   // Use the forEach() function to execute the provided function once for each element in the formElements array
   formElements.forEach((element) => {
@@ -38,21 +39,39 @@ const handleChange = () => {
     submitButton.setAttribute('disabled', '');
   };
 };
-// Define a function to handle form submission
+
+// FUNCTION: Handle form submission
+// FOR PROJECT 14 COLLECT FORM INFORMATION IN JSON FORMAT 
 const handleSubmit = (e) => {
   // Prevent the default form submission behavior
   e.preventDefault();
   // If all form elements are valid after the form submission, display a success message, reset the form, and disable the submit button
   if(allInputsValid()) {
+    // MODIFIED TO FULFILL PROJECT 14 REQUIREMENTS 
+    const formData = {};
+
+    formElements.forEach((element) => {
+      if(element.nodeName !== "BUTTON") {
+        formData[element.name] = element.value;
+      }
+    });
+
+    const jsonData = JSON.stringify(formData);
+    const jsonContainer = document.getElementById("json-display");
+
+    jsonContainer.textContent = `Form Data: ${jsonData}`;
+    jsonContainer.style.display = 'block';
     successMessage.style.display = 'block';
     form.reset();
     submitButton.setAttribute('disabled', '');
     // Hide the success message after 3 seconds
     setTimeout(() => {
       successMessage.style.display = 'none';
+      jsonContainer.style.display = 'none';
     }, 3000);
   };
 };
+
 // FUNCTION: Reset form styles
 const resetFormStyles = () => {
   formElements.forEach((element) => {
@@ -64,10 +83,12 @@ const resetFormStyles = () => {
     };
   });
 };
+
 // Add event listener to each form element
 formElements.forEach((element) => {
   element.addEventListener('change', handleChange);
 });
+
 // Add submit listener to the form
 form.addEventListener('submit', (e) => handleSubmit(e));
 
